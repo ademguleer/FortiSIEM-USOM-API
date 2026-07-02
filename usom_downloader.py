@@ -1,4 +1,3 @@
-#!/usr/bin/env python3.9
 import requests
 import time
 import csv
@@ -49,7 +48,6 @@ def download_usom():
             current_page += 1
             time.sleep(0.2)
             
-        # Deduplication (Tekilleştirme)
         if len(data_list) > 0:
             unique_ips = set()
             clean_data_list = []
