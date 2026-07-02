@@ -23,45 +23,41 @@ To achieve optimal performance and stability, the monolithic plugin approach was
 ### Step 1: Setup the Extractor (Background Worker)
 Place the downloader script in the threatfeed integrations directory and grant execution permissions so the Linux OS can trigger it:
 
+```bash
 cp usom_downloader.py /opt/phoenix/data-definition/threatfeedIntegrations/
 chmod 755 /opt/phoenix/data-definition/threatfeedIntegrations/usom_downloader.py
+```
 
 Schedule the data extraction to run daily (e.g., at 03:00 AM) by adding it to your crontab:
 
+```bash
 crontab -e
 # Add the following line:
 0 3 * * * /usr/bin/python3.9 /opt/phoenix/data-definition/threatfeedIntegrations/usom_downloader.py
+```
 
-Step 2: Setup the Ingestor (FortiSIEM Plugin)
-Place the feeder script in the same directory and grant execution permissions so the FortiSIEM phoenix daemon can execute it:
+### Step 2: Setup the Ingestor (FortiSIEM Plugin)
+Place the feeder script in the same directory and grant execution permissions so the FortiSIEM `phoenix` daemon can execute it:
 
+```bash
 cp usom_threatfeed.py /opt/phoenix/data-definition/threatfeedIntegrations/
 chmod 755 /opt/phoenix/data-definition/threatfeedIntegrations/usom_threatfeed.py
+```
 
-Step 3: FortiSIEM GUI Configuration
+### Step 3: FortiSIEM GUI Configuration
 Map the new ingestor script to the FortiSIEM interface:
 
-Navigate to RESOURCES > Malware IPs.
+1. Navigate to **RESOURCES > Malware IPs**.
+2. Create or Edit the USOM Threatfeed group.
+3. Configure with the following parameters:
+   * **Update via API:** `Checked`
+   * **Plugin Type:** `Python`
+   * **Script Name:** `usom_threatfeed.py`
+   * **Update Type:** `Full Update`
+   * **URL:** `https://127.0.0.1` *(Note: Since the decoupled ingestor reads locally, a dummy URL is sufficient to pass GUI validation).*
+4. Click **Save**, right-click the group, and select **Update > Once**. The dashboard will populate instantly.
 
-Create or Edit the USOM Threatfeed group.
-
-Configure with the following parameters:
-
-Update via API: Checked
-
-Plugin Type: Python
-
-Script Name: usom_threatfeed.py
-
-Update Type: Full Update
-
-URL: [https://127.0.0.1](https://siberguvenlik.gov.tr/api/address/index?type=ip) (Note: Since the decoupled ingestor reads locally, a dummy URL is sufficient to pass GUI validation).
-
-Click Save, right-click the group, and select Update > Once. The dashboard will populate instantly.
-
-🛡️ Prerequisites
-FortiSIEM (Tested on v7.x)
-
-Python 3.9+
-
-Network access to the target API for the FortiSIEM Supervisor/Worker node.
+## 🛡️ Prerequisites
+* FortiSIEM (Tested on v7.x)
+* Python 3.9+
+* Network access to the target API for the FortiSIEM Supervisor/Worker node.
