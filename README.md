@@ -1,4 +1,4 @@
-# FortiSIEM - USOM Threat Intelligence Integration (Decoupled Architecture)
+# FortiSIEM - USOM Threat Intelligence Integration
 
 An optimized, two-tier (decoupled) Python integration designed to securely and efficiently ingest large-scale Threat Intelligence feeds (like USOM Malicious IPs) into FortiSIEM environments.
 
