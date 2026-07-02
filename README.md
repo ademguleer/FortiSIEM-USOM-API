@@ -54,7 +54,7 @@ Map the new ingestor script to the FortiSIEM interface:
    * **Plugin Type:** `Python`
    * **Script Name:** `usom_threatfeed.py`
    * **Update Type:** `Full Update`
-   * **URL:** `https://127.0.0.1` *(Note: Since the decoupled ingestor reads locally, a dummy URL is sufficient to pass GUI validation).*
+   * **URL:** [`https://127.0.0.1`](https://siberguvenlik.gov.tr/api/address/index?type=ip) *(Note: Since the decoupled ingestor reads locally, a dummy URL is sufficient to pass GUI validation).*
 4. Click **Save**, right-click the group, and select **Update > Once**. The dashboard will populate instantly.
 
 ## 🛡️ Prerequisites
